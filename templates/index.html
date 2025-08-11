@@ -54,27 +54,6 @@
                     <div class="mb-3">
                         <input class="form-control" type="file" id="formFile" name="file" accept="image/*">
                     </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="predictionMethod" id="standardMethod" value="standard" checked>
-                            <label class="form-check-label" for="standardMethod">
-                                Standard Prediction
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="predictionMethod" id="enhancedMethod" value="enhanced">
-                            <label class="form-check-label" for="enhancedMethod">
-                                🚀 Enhanced Prediction (Ensemble)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="predictionMethod" id="smartMethod" value="smart">
-                            <label class="form-check-label" for="smartMethod">
-                                🧠 Smart Prediction (Recommended)
-                            </label>
-                        </div>
-                        <small class="form-text text-muted">Smart prediction uses advanced preprocessing and multiple image versions for highest accuracy</small>
-                    </div>
                     <button type="submit" class="btn btn-primary">Classify Image</button>
                 </form>
                 <div class="loading">
@@ -101,13 +80,6 @@
                 </div>
             </div>
         </div>
-        
-        <div class="admin-section">
-            <h5>Admin Section</h5>
-            <p>Need to update the model? Click the button below to open the training notebook in Google Colab.</p>
-            <a href="/retrain" target="_blank" class="btn btn-retrain">Retrain Model in Colab</a>
-            <p class="mt-2 small text-muted">Note: After retraining, the model will be automatically updated on the next prediction.</p>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -123,15 +95,7 @@
             loading.style.display = 'block';
             resultContainer.style.display = 'none';
             
-const selectedMethod = document.querySelector('input[name="predictionMethod"]:checked').value;
-            let predictionApi = '/predict';
-            if (selectedMethod === 'enhanced') {
-                predictionApi = '/predict_enhanced';
-            } else if (selectedMethod === 'smart') {
-                predictionApi = '/predict_smart';
-            }
-
-            fetch(predictionApi, {
+fetch('/predict', {
                 method: 'POST',
                 body: formData
             })
